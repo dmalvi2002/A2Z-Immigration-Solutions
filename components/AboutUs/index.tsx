@@ -1,4 +1,5 @@
 "use client";
+import {PageText} from "@/components/CMS/PageContent";
 
 import React from "react";
 import { motion } from "framer-motion";
@@ -45,17 +46,17 @@ const AboutUs: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-          >
+          ><PageText field="heading">
             A2Z Immigration Solutions Limited
-          </motion.h1>
+          </PageText></motion.h1>
           <motion.p
             className="max-w-3xl text-xl md:text-2xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-          >
+          ><PageText field="introduction">
             Growing Talent, Simplifying Journeys
-          </motion.p>
+          </PageText></motion.p>
         </div>
       </motion.section>
 

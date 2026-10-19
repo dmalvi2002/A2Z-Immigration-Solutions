@@ -1,3 +1,6 @@
+import {pageMetadata} from '@/sanity/lib/content';
+import PageData from '@/components/CMS/PageData';
+export const generateMetadata = () => pageMetadata('home');
 import { Metadata } from "next";
 import Hero from "@/components/Hero";
 import Brands from "@/components/Brands";
@@ -12,14 +15,10 @@ import GoogleReviews from "@/components/Testimonial/GoogleReview";
 import FAQSection from "@/components/FAQ/FAQ-Section";
 import faqItems from "@/components/FAQ/homefaqData";
 
-export const metadata: Metadata = {
-  title: "A2Z Immigration",
-  description: "Find the best",
-  // other metadata
-};
+
 
 export default function Home() {
-  return (
+  return (<> <PageData id="home" />
     <main>
       <Hero />
       <Brands />
@@ -37,5 +36,5 @@ export default function Home() {
       <BlogSection />
       <FAQSection faqItems={faqItems} />
     </main>
-  );
+  </>);
 }

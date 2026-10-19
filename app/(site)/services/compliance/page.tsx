@@ -1,3 +1,6 @@
+import {pageMetadata} from '@/sanity/lib/content';
+import PageData from '@/components/CMS/PageData';
+export const generateMetadata = () => pageMetadata('compliance');
 import React from "react";
 import { Metadata } from "next";
 import Brands from "@/components/Brands";
@@ -13,14 +16,10 @@ import ComplianceCTA from "@/components/Services/CompliancePage/Compliance-CTA";
 import packages from "@/components/Services/CompliancePage/compliancePriceData";
 import faqItems from "@/components/Services/CompliancePage/compliancefaqData";
 
-export const metadata: Metadata = {
-  title: "Compliance Page - A2Z",
-  description: "A2Z Immigration",
-  // other metadata
-};
+
 
 const CompliancePage = () => {
-  return (
+  return (<> <PageData id="compliance">
     <div className="pb-20 pt-40">
       <ComplianceBanner />
       <Brands />
@@ -33,7 +32,7 @@ const CompliancePage = () => {
       <WhoLovesUs />
       <FAQSection faqItems={faqItems} />
     </div>
-  );
+  </PageData></>);
 };
 
 export default CompliancePage;

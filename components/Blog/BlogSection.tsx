@@ -13,6 +13,7 @@ interface BlogPost {
   slug: { current: string };
   excerpt?: string;
   mainImage?: {
+    alt?: string;
     asset: {
       url: string;
     };
@@ -25,10 +26,10 @@ const BlogCard: React.FC<{
   index: number;
 }> = ({ post, index }) => {
   // Format the date
-  const formattedDate = format(
+  const formattedDate = post.publishedAt ? format(
     new Date(post.publishedAt),
     "MMMM dd, yyyy",
-  ).toUpperCase();
+  ).toUpperCase() : 'No date';
 
   // Get image URL from Sanity
   const imageUrl = post.mainImage?.asset?.url || "/images/blog/blog-01.png";
@@ -43,7 +44,7 @@ const BlogCard: React.FC<{
         <div className="h-full w-full transition-transform duration-500 hover:scale-110">
           <Image
             src={imageUrl}
-            alt={post.title}
+            alt={post.mainImage?.alt || post.title}
             layout="fill"
             objectFit="cover"
             className="h-full w-full"

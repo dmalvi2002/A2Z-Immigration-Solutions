@@ -27,9 +27,6 @@
       "@/*": [
         "./*"
       ],
-      "sanity/*": [
-        "./node_modules/sanity/*"
-      ],
       "react": [
         "./node_modules/@types/react"
       ]

@@ -1,15 +1,14 @@
+import {pageMetadata} from '@/sanity/lib/content';
+import PageData from '@/components/CMS/PageData';
+export const generateMetadata = () => pageMetadata('get-in-touch');
 import React from "react";
 import Contact from "@/components/Contact";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Get In Touch - A2Z",
-  description: "A2Z Immigrants",
-  // other metadataa
-};
+
 
 const GetInTouchPage = () => {
-  return (
+  return (<> <PageData id="get-in-touch" />
     <div className="pb-20 pt-40">
       <Contact
         serviceId="service_yj3nlrh"
@@ -17,7 +16,7 @@ const GetInTouchPage = () => {
         publicKey="8seFmYH7EcPOmhmGg"
       />
     </div>
-  );
+  </>);
 };
 
 export default GetInTouchPage;

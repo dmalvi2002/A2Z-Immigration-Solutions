@@ -1,5 +1,4 @@
 "use client";
-import { useState, useEffect } from "react";
 import SharePost from "@/components/Blog/lib/SharePost";
 import BookCallSidebar from "@/components/Blog/lib/sub/BookCall";
 import CategoryList from "@/components/Blog/lib/sub/CategoryList";
@@ -7,9 +6,6 @@ import TrendingPosts from "@/components/Blog/lib/sub/TrendingPosts";
 import TableComponent from "@/components/Blog/lib/TableComponent";
 import Image from "next/image";
 import Link from "next/link";
-import { getSingleBlogPost } from "@/components/Blog/blogDetailsData";
-import fallbackDetailsData from "@/components/Blog/blogDetailsData";
-import { useRouter, usePathname } from "next/navigation";
 import { PortableText } from "@/utils/PortableText";
 import { DataTable } from "@/types/blog";
 
@@ -21,6 +17,7 @@ interface BlogPost {
   publishDate: string;
   category: string;
   mainImage: string;
+  mainImageAlt?: string;
   content: string[] | any; // Support both array of strings and PortableText blocks
   estimatedReadingTime?: string;
   additionalImages?: string[];
@@ -30,131 +27,12 @@ interface BlogPost {
     title: string;
     slug: string;
     mainImage: string;
+    mainImageAlt?: string;
     publishDate: string;
   }>;
 }
 
-interface BlogDetailsProps {
-  slug?: string;
-}
-
-const BlogDetails = ({ slug: propSlug }: BlogDetailsProps) => {
-  const [blogPost, setBlogPost] = useState<BlogPost | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
-  const pathname = usePathname();
-
-  // Determine slug from props, URL, or data attribute
-  const getSlug = () => {
-    // Check if slug was passed as prop
-    if (propSlug) {
-      return propSlug;
-    }
-
-    // Check if we can extract from pathname
-    if (pathname) {
-      const pathParts = pathname.split("/");
-      const slugFromPath = pathParts[pathParts.length - 1];
-      return slugFromPath;
-    }
-
-    // Check for data attribute as fallback
-    const dataElement = document.getElementById("blog-post-slug");
-    if (dataElement) {
-      const slugFromData = dataElement.getAttribute("data-slug");
-      return slugFromData;
-    }
-
-    return null;
-  };
-
-  useEffect(() => {
-    async function loadBlogPost() {
-      try {
-        setLoading(true);
-        const effectiveSlug = getSlug();
-
-        // Handle missing slug
-        if (!effectiveSlug) {
-          console.warn("No slug provided, using fallback data");
-          setError("No post ID provided");
-          setBlogPost(fallbackDetailsData[0]);
-          return;
-        }
-
-        console.log(`Attempting to fetch post with slug: "${effectiveSlug}"`);
-
-        // Try to get the post
-        const post = await getSingleBlogPost(effectiveSlug);
-
-        // Post found successfully
-        if (post) {
-          console.log(`Successfully loaded post: "${post.title}"`);
-          setError(null);
-          setBlogPost(post);
-        }
-        // Post not found (null returned)
-        else {
-          console.warn(
-            `Post with slug "${effectiveSlug}" not found, using fallback data`,
-          );
-          setError(`Post "${effectiveSlug}" not found`);
-          setBlogPost(fallbackDetailsData[0]);
-        }
-      } catch (err: any) {
-        // Handle any unexpected errors
-        const errorMessage = err?.message || "Unknown error occurred";
-        console.error(`Error loading blog post: ${errorMessage}`, err);
-
-        // Check for specific error types
-        if (errorMessage.includes("not found")) {
-          setError(`Post not found: ${errorMessage}`);
-        } else {
-          setError(`Failed to load blog post: ${errorMessage}`);
-        }
-
-        // Always use fallback data in case of error
-        setBlogPost(fallbackDetailsData[0]);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    loadBlogPost();
-  }, [propSlug, pathname]);
-
-  if (loading) {
-    return (
-      <div className="flex min-h-[60vh] items-center justify-center">
-        <div className="flex flex-col items-center">
-          <div className="h-12 w-12 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
-          <p className="mt-4 text-lg">Loading blog post...</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Always show content since we're using fallback data
-  if (!blogPost) {
-    return (
-      <div className="mx-auto my-16 max-w-3xl rounded-lg bg-yellow-50 p-8 text-center">
-        <h2 className="mb-4 text-2xl font-bold text-yellow-600">
-          Post Not Found
-        </h2>
-        <p className="mb-6 text-yellow-700">
-          We couldn't find the blog post you're looking for.
-        </p>
-        <Link
-          href="/blog/category/show-all"
-          className="rounded-lg bg-blue-500 px-6 py-3 text-white transition-colors hover:bg-blue-600"
-        >
-          Browse All Posts
-        </Link>
-      </div>
-    );
-  }
-
+const BlogDetails = ({post: blogPost, showRelatedPosts = true}: {post: BlogPost; showRelatedPosts?: boolean}) => {
   // Determine if there are legacy tables that still need rendering
   const inlineTableIds = Array.isArray(blogPost.content)
     ? blogPost.content
@@ -172,26 +50,10 @@ const BlogDetails = ({ slug: propSlug }: BlogDetailsProps) => {
 
   // Render function to handle content display with error info
   const renderContent = () => {
-    // Always show fallback content when there's an error
-    const isShowingFallback = error !== null;
 
     return (
       <section className="pb-20 pt-20 lg:pb-25 lg:pt-25 xl:pb-30 xl:pt-30">
         <div className="mx-auto max-w-c-1390 px-4 md:px-8 2xl:px-0">
-          {/* Error notification */}
-          {isShowingFallback && (
-            <div className="mb-8 rounded-md bg-yellow-50 p-4 text-yellow-700">
-              <p className="font-medium">{error}</p>
-              <p className="text-sm">Showing alternative content instead.</p>
-              <button
-                onClick={() => router.push("/blog/category/show-all")}
-                className="mt-2 text-sm font-medium text-blue-600 hover:text-blue-800"
-              >
-                View all blog posts
-              </button>
-            </div>
-          )}
-
           <div className="flex flex-col gap-7.5 lg:flex-row xl:gap-12.5">
             <div className="lg:w-2/3">
               <div className="animate_top rounded-md border border-stroke bg-white p-7.5 shadow-solid-13  md:p-10">
@@ -200,7 +62,7 @@ const BlogDetails = ({ slug: propSlug }: BlogDetailsProps) => {
                   <div className="relative aspect-[97/60] w-full sm:aspect-[97/44]">
                     <Image
                       src={blogPost.mainImage}
-                      alt={blogPost.title}
+                      alt={blogPost.mainImageAlt || blogPost.title}
                       fill
                       className="rounded-md object-cover object-center"
                       priority
@@ -316,7 +178,7 @@ const BlogDetails = ({ slug: propSlug }: BlogDetailsProps) => {
                 <SharePost />
 
                 {/* Related Posts Section */}
-                {blogPost.relatedPosts && blogPost.relatedPosts.length > 0 && (
+                {showRelatedPosts && blogPost.relatedPosts && blogPost.relatedPosts.length > 0 && (
                   <div className="mt-16 border-t border-gray-200 pt-12 ">
                     <h3 className="mb-8 text-2xl font-semibold text-black ">
                       Related Articles
@@ -331,7 +193,7 @@ const BlogDetails = ({ slug: propSlug }: BlogDetailsProps) => {
                             <div className="relative h-48 w-full overflow-hidden">
                               <Image
                                 src={relatedPost.mainImage}
-                                alt={relatedPost.title}
+                                alt={relatedPost.mainImageAlt || relatedPost.title}
                                 fill
                                 className="object-cover transition-transform duration-300 group-hover:scale-105"
                               />

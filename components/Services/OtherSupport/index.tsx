@@ -1,4 +1,5 @@
 "use client";
+import {PageText} from "@/components/CMS/PageContent";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -25,13 +26,13 @@ const OtherSupport = () => {
     <section className="bg-gradient-to-b from-slate-50 to-slate-100 py-10 ">
       <div className="container mx-auto px-4">
         <div className="mb-16 text-center">
-          <h2 className="mb-4 bg-gradient-to-r from-sky-500 to-sky-800 bg-clip-text text-3xl font-bold text-transparent sm:text-3xl md:text-4xl lg:text-5xl">
+          <h2 className="mb-4 bg-gradient-to-r from-sky-500 to-sky-800 bg-clip-text text-3xl font-bold text-transparent sm:text-3xl md:text-4xl lg:text-5xl"><PageText field="heading">
             Support Services
-          </h2>
-          <p className="mx-auto max-w-3xl text-lg text-slate-600 ">
+          </PageText></h2>
+          <p className="mx-auto max-w-3xl text-lg text-slate-600 "><PageText field="introduction">
             Comprehensive assistance tailored to your unique needs. Explore our
             range of specialised support options.
-          </p>
+          </PageText></p>
         </div>
 
         <div className="mx-auto flex w-full max-w-7xl flex-col justify-center gap-10 lg:flex-row">

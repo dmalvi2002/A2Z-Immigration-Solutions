@@ -8,18 +8,18 @@ import Sidebar from "@/components/Blog/lib/Sidebar";
 import useBlogData from "./blogData";
 import FindCTA from "./lib/sub/FindCTA";
 
-const Blog = () => {
+const Blog = ({archiveTitle, archiveDescription, postsPerPage = 10, initialPosts}: {archiveTitle?: string; archiveDescription?: string; postsPerPage?: number; initialPosts?: import('@/types/blog').BlogType[]}) => {
   // Extract category slug from URL path
   const pathname = usePathname();
   const categorySlug = pathname.startsWith("/blog/category/")
     ? pathname.split("/blog/category/")[1]
     : undefined;
   const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 10;
 
   // Get blog data using the custom hook
   const { posts, loading, error, categoryTitle, totalPosts } = useBlogData({
     categorySlug,
+    initialPosts,
   });
 
   // Reset to page 1 when category changes
@@ -36,7 +36,7 @@ const Blog = () => {
   return (
     <>
       {" "}
-      <BlogHeader categoryTitle={categoryTitle} />
+      <BlogHeader categoryTitle={categoryTitle} archiveTitle={archiveTitle} archiveDescription={archiveDescription} />
       <section className="bg-gray-50 py-10" data-blog-section>
         <div className="mx-auto max-w-c-1280 px-4 md:px-8 xl:px-0">
           {/* Show notification for "show-all" */}

@@ -1,21 +1,20 @@
+import {pageMetadata} from '@/sanity/lib/content';
+import PageData from '@/components/CMS/PageData';
+export const generateMetadata = () => pageMetadata('other-services');
 import React from "react";
 import { Metadata } from "next";
 import OtherSupport from "@/components/Services/OtherSupport";
 import SupportCTA from "@/components/Services/OtherSupport/SupportCTA";
 
-export const metadata: Metadata = {
-  title: "Skilled Worker Visa Page - A2Z",
-  description: "A2Z Immigration",
-  // other metadata
-};
+
 
 const OtherSupportPage = () => {
-  return (
+  return (<> <PageData id="other-services">
     <div className="py-20">
       <OtherSupport />
       <SupportCTA />
     </div>
-  );
+  </PageData></>);
 };
 
 export default OtherSupportPage;

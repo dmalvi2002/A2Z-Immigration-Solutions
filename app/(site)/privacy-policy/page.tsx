@@ -1,8 +1,11 @@
+import {pageMetadata} from '@/sanity/lib/content';
+import PageData from '@/components/CMS/PageData';
+export const generateMetadata = () => pageMetadata('privacy-policy');
 import React from "react";
 import Link from "next/link";
 
 export default function PrivacyPolicy() {
-  return (
+  return (<> <PageData id="privacy-policy" />
     <div className="bg-gray-50">
       <style>{`
       @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css");
@@ -374,5 +377,5 @@ export default function PrivacyPolicy() {
         </div>
       </div>
     </div>
-  );
+  </>);
 }

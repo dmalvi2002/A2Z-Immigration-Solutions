@@ -1,4 +1,5 @@
 "use client";
+import {PageText} from "@/components/CMS/PageContent";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -17,14 +18,14 @@ const VisaBanner: React.FC = () => {
   return (
     <div className="font-sans mx-auto flex max-w-7xl flex-col-reverse items-center justify-between p-6 md:flex-row md:gap-8 md:p-10 2xl:px-0">
       <div className="mb-0 mt-10 w-full md:mb-0 md:mt-0 md:w-1/2 md:pr-10">
-        <h1 className="mb-6 text-3xl font-bold leading-tight text-[#0096c7] sm:text-3xl md:text-4xl lg:text-5xl">
+        <h1 className="mb-6 text-3xl font-bold leading-tight text-[#0096c7] sm:text-3xl md:text-4xl lg:text-5xl"><PageText field="heading">
           Seamless visa processing
-        </h1>
-        <p className="mb-8 max-w-lg text-base leading-relaxed text-gray-600">
+        </PageText></h1>
+        <p className="mb-8 max-w-lg text-base leading-relaxed text-gray-600"><PageText field="introduction">
           A2zimmigration solution takes care of all things immigration,
           requesting and assigning certificates of sponsorship and submitting
           visa applications, all overseen by immigration experts.
-        </p>
+        </PageText></p>
         <a href="/get-in-touch">
           <button className="rounded bg-gradient-to-r from-sky-500 to-sky-800 px-6 py-3 font-semibold text-white transition-colors duration-300  hover:brightness-110">
             Get in touch

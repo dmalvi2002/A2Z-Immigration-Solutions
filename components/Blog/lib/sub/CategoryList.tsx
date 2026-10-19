@@ -66,7 +66,7 @@ const CategoryList = ({ currentCategory }: CategoryListProps) => {
         const fetchedCategories = await fetchCategories();
 
         // Get actual total post count directly from all posts (including uncategorized)
-        const totalPostsQuery = `count(*[_type == "post"])`;
+        const totalPostsQuery = `count(*[_type == "post" && defined(slug.current)])`;
         const total = await client.fetch(totalPostsQuery);
 
         setTotalPosts(total);

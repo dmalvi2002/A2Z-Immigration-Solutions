@@ -13,6 +13,7 @@ interface TrendingPost {
   title: string;
   slug: { current: string };
   mainImage?: {
+    alt?: string;
     asset: {
       url: string;
     };
@@ -175,7 +176,7 @@ const TrendingPosts = () => {
                 >
                   <Image
                     src={post.mainImage?.asset?.url || defaultImage}
-                    alt={post.title}
+                    alt={post.mainImage?.alt || post.title}
                     width={80}
                     height={80}
                     className="h-20 w-20 object-cover"

@@ -6,6 +6,18 @@ import { postType } from "./postType";
 import { authorType } from "./authorType";
 import { tableType } from "./tableType";
 
+import { seoType } from "./seoType";
+import { pageType } from "./pageType";
+import { settingsType } from "./settingsType";
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [blockContentType, categoryType, postType, authorType, tableType],
+  types: [
+    blockContentType,
+    categoryType,
+    postType,
+    authorType,
+    tableType,
+    seoType,
+    pageType,
+    settingsType,
+  ],
 };

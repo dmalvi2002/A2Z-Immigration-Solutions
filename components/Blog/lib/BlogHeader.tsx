@@ -4,9 +4,11 @@ import { motion } from "framer-motion";
 
 interface BlogHeaderProps {
   categoryTitle?: string;
+  archiveTitle?: string;
+  archiveDescription?: string;
 }
 
-const BlogHeader = ({ categoryTitle }: BlogHeaderProps) => {
+const BlogHeader = ({ categoryTitle, archiveTitle, archiveDescription }: BlogHeaderProps) => {
   return (
     <motion.div
       className="relative h-96 w-full bg-cover bg-center"
@@ -22,14 +24,14 @@ const BlogHeader = ({ categoryTitle }: BlogHeaderProps) => {
         <div className="mx-auto max-w-c-1280">
           <div className="max-w-3xl text-center text-white sm:mx-auto">
             <h1 className="mb-2 text-3xl font-bold leading-tight sm:mb-3 sm:text-3xl md:mb-4 md:text-4xl lg:mb-5 lg:text-5xl">
-              {categoryTitle
+              {archiveTitle || (categoryTitle
                 ? `${categoryTitle} Blog Posts`
-                : "Blogs & Articles"}
+                : "Blogs & Articles")}
             </h1>
             <p className="xs:text-base mx-auto px-2 text-sm sm:text-lg md:max-w-2xl">
-              {categoryTitle
+              {archiveDescription || (categoryTitle
                 ? `Browse our collection of articles about ${categoryTitle}`
-                : "Find lots of useful information that answers the most common questions"}
+                : "Find lots of useful information that answers the most common questions")}
             </p>
 
             {/* Breadcrumb */}

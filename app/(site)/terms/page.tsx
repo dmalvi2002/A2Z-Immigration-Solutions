@@ -1,7 +1,10 @@
+import {pageMetadata} from '@/sanity/lib/content';
+import PageData from '@/components/CMS/PageData';
+export const generateMetadata = () => pageMetadata('terms');
 import React from "react";
 
 export default function TermsConditions() {
-  return (
+  return (<> <PageData id="terms" />
     <div className="bg-gray-50">
       <style>{`
         @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
@@ -692,5 +695,5 @@ export default function TermsConditions() {
         </div>
       </main>
     </div>
-  );
+  </>);
 }

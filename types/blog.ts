@@ -30,6 +30,7 @@ export type BlogType = {
   excerpt?: string;
   category?: string;
   thumbnail?: any;
+  imageAlt?: string;
   author?: Author;
   tags?: string[];
   date?: string;

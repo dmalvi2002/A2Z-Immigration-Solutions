@@ -1,3 +1,6 @@
+import {pageMetadata} from '@/sanity/lib/content';
+import PageData from '@/components/CMS/PageData';
+export const generateMetadata = () => pageMetadata('skilled-worker-visa');
 import React from "react";
 import { Metadata } from "next";
 import Brands from "@/components/Brands";
@@ -12,14 +15,10 @@ import FAQSection from "@/components/FAQ/FAQ-Section";
 import packages from "@/components/Services/SkilledVisaPage/visaPriceData";
 import faqItems from "@/components/Services/SkilledVisaPage/visafaqData";
 
-export const metadata: Metadata = {
-  title: "Skilled Worker Visa Page - A2Z",
-  description: "A2Z Immigration",
-  // other metadata
-};
+
 
 const SkilledVisaPage = () => {
-  return (
+  return (<> <PageData id="skilled-worker-visa">
     <div className="pb-20 pt-40">
       <VisaBanner />
       <Brands />
@@ -31,7 +30,7 @@ const SkilledVisaPage = () => {
       <VisaServices />
       <FAQSection faqItems={faqItems} />
     </div>
-  );
+  </PageData></>);
 };
 
 export default SkilledVisaPage;

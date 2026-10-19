@@ -15,7 +15,7 @@ const BlogItem: React.FC<BlogItemProps> = ({ post }) => {
       <div className="relative">
         <Image
           src={post.thumbnail || "/images/blog/placeholder.jpg"}
-          alt={post.title}
+          alt={post.imageAlt || post.title}
           width={400}
           height={250}
           className="h-56 w-full object-cover p-1"

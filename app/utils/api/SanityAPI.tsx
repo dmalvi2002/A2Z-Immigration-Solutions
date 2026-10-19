@@ -6,13 +6,14 @@ import { client } from "@/sanity/lib/client";
  * @returns Array of blog posts
  */
 export async function fetchPosts(limit?: number) {
-  const query = `*[_type == "post"] {
+  const query = `*[_type == "post" && defined(slug.current)] {
     _id,
     title,
     slug,
     excerpt,
     "estimatedReadingTime": round(length(pt::text(body)) / 5 / 180),
     mainImage {
+      alt,
       asset -> { url }
     },
     categories[]-> { title, slug },
@@ -32,10 +33,13 @@ export async function fetchPosts(limit?: number) {
  * @returns The blog post or null if not found
  */
 export async function fetchPostBySlug(slug: string) {
-  const query = `*[_type == "post" && slug.current == $slug][0] {
+  const query = `*[_type == "post" && defined(slug.current) && slug.current == $slug][0] {
     _id,
     title,
+    seo,
     slug,
+    excerpt,
+    _updatedAt,
     body[]{
       ...,
       _type == "tableBlock" => {
@@ -55,6 +59,7 @@ export async function fetchPostBySlug(slug: string) {
     },
     "estimatedReadingTime": round(length(pt::text(body)) / 5 / 180),
     mainImage {
+      alt,
       asset -> { url }
     },
     categories[]-> { title, slug },
@@ -73,11 +78,12 @@ export async function fetchPostBySlug(slug: string) {
       tableStyle,
       slug
     },
-    "relatedPosts": *[_type == "post" && slug.current != $slug && count(categories[@._ref in ^.^.categories[]._ref]) > 0] {
+    "relatedPosts": *[_type == "post" && defined(slug.current) && slug.current != $slug && count(categories[@._ref in ^.^.categories[]._ref]) > 0] {
       _id,
       title,
       slug,
       mainImage {
+        alt,
         asset -> { url }
       },
       publishedAt
@@ -95,9 +101,10 @@ export async function fetchCategories() {
   const query = `*[_type == "category"] {
     _id,
     title,
+    seo,
     slug,
     description,
-    "postCount": count(*[_type == "post" && references(^._id)])
+    "postCount": count(*[_type == "post" && defined(slug.current) && references(^._id)])
   } | order(title asc)`;
 
   return await client.fetch(query);
@@ -113,13 +120,14 @@ export async function fetchPostsByCategory(
   categorySlug: string,
   limit?: number,
 ) {
-  const query = `*[_type == "post" && $categorySlug in categories[]->slug.current] {
+  const query = `*[_type == "post" && defined(slug.current) && $categorySlug in categories[]->slug.current] {
     _id,
     title,
     slug,
     excerpt,
     "estimatedReadingTime": round(length(pt::text(body)) / 5 / 180),
     mainImage {
+      alt,
       asset -> { url }
     },
     categories[]-> { title, slug },
@@ -140,7 +148,7 @@ export async function fetchPostsByCategory(
  * @returns Array of matching blog posts
  */
 export async function searchPosts(searchTerm: string, limit: number = 10) {
-  const query = `*[_type == "post" && (
+  const query = `*[_type == "post" && defined(slug.current) && (
     title match $searchTerm ||
     pt::text(body) match $searchTerm
   )] {
@@ -149,6 +157,7 @@ export async function searchPosts(searchTerm: string, limit: number = 10) {
     slug,
     excerpt,
     mainImage {
+      alt,
       asset -> { url }
     },
     categories[]-> { title, slug },
@@ -165,12 +174,13 @@ export async function searchPosts(searchTerm: string, limit: number = 10) {
  * @returns Array of featured blog posts
  */
 export async function fetchFeaturedPosts(limit: number = 3) {
-  const query = `*[_type == "post" && featured == true] {
+  const query = `*[_type == "post" && defined(slug.current) && featured == true] {
     _id,
     title,
     slug,
     excerpt,
     mainImage {
+      alt,
       asset -> { url }
     },
     categories[]-> { title, slug },
@@ -199,17 +209,18 @@ export async function fetchPaginatedPosts(
   const end = start + pageSize;
 
   // Get total count for pagination
-  const totalCountQuery = `count(*[_type == "post"])`;
+  const totalCountQuery = `count(*[_type == "post" && defined(slug.current)])`;
   const totalCount = await client.fetch(totalCountQuery);
 
   // Fetch paginated posts
-  const query = `*[_type == "post"] {
+  const query = `*[_type == "post" && defined(slug.current)] {
     _id,
     title,
     slug,
     excerpt,
     "estimatedReadingTime": round(length(pt::text(body)) / 5 / 180),
     mainImage {
+      alt,
       asset -> { url }
     },
     categories[]-> { title, slug },
@@ -238,13 +249,14 @@ export async function fetchPaginatedPosts(
  * @returns Array of trending blog posts
  */
 export async function fetchTrendingPosts(limit: number = 5) {
-  const query = `*[_type == "post"] {
+  const query = `*[_type == "post" && defined(slug.current)] {
     _id,
     title,
     slug,
     excerpt,
     "estimatedReadingTime": round(length(pt::text(body)) / 5 / 180),
     mainImage {
+      alt,
       asset -> { url }
     },
     categories[]-> { title, slug },

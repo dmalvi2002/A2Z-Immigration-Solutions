@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint . --ext .js,.ts,.tsx",
+    "typecheck": "tsc --noEmit",
+    "test:cms": "node --test tests/cms.test.cjs",
+    "audit:cms": "node scripts/audit-cms.cjs"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

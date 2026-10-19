@@ -9,6 +9,7 @@ import {
 
 interface BlogDataProps {
   categorySlug?: string;
+  initialPosts?: BlogType[];
 }
 
 interface BlogDataResult {
@@ -20,14 +21,15 @@ interface BlogDataResult {
 }
 
 // Refactored to handle both all posts and category-specific posts
-const useBlogData = ({ categorySlug }: BlogDataProps): BlogDataResult => {
-  const [posts, setPosts] = useState<BlogType[]>([]);
-  const [loading, setLoading] = useState(true);
+const useBlogData = ({ categorySlug, initialPosts }: BlogDataProps): BlogDataResult => {
+  const [posts, setPosts] = useState<BlogType[]>(initialPosts || []);
+  const [loading, setLoading] = useState(!initialPosts);
   const [error, setError] = useState<string | null>(null);
   const [categoryTitle, setCategoryTitle] = useState<string>("");
   const [totalPosts, setTotalPosts] = useState(0);
 
   useEffect(() => {
+    if (initialPosts) {setPosts(initialPosts); setLoading(false); return;}
     const loadPosts = async () => {
       try {
         setLoading(true);
@@ -46,7 +48,7 @@ const useBlogData = ({ categorySlug }: BlogDataProps): BlogDataResult => {
           // First check if this is a valid category
           const categories = await fetchCategories();
           const category = categories.find(
-            (cat: any) => cat.slug.current === categorySlug,
+            (cat: any) => cat.slug?.current === categorySlug,
           );
 
           if (category) {
@@ -91,8 +93,9 @@ const useBlogData = ({ categorySlug }: BlogDataProps): BlogDataResult => {
               readTime: post.estimatedReadingTime
                 ? `${post.estimatedReadingTime} min read`
                 : "5 min read",
+              imageAlt: post.mainImage?.alt || post.title,
               thumbnail:
-                post.mainImage?.asset?.url || "/images/blog/default.jpg",
+                post.mainImage?.asset?.url || "/images/blog/blog-01.png",
               slug: post.slug.current,
             }),
           );
@@ -111,7 +114,7 @@ const useBlogData = ({ categorySlug }: BlogDataProps): BlogDataResult => {
     };
 
     loadPosts();
-  }, [categorySlug]); // Re-fetch when category changes
+  }, [categorySlug, initialPosts]);
 
   return { posts, loading, error, categoryTitle, totalPosts };
 };

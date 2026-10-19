@@ -1,5 +1,2 @@
-import BlogRedirectLoading from "@/utils/BlogRedirectLoading";
-
-export default function BlogPage() {
-  return <BlogRedirectLoading />;
-}
+import {permanentRedirect} from 'next/navigation'
+export default function BlogPage() {permanentRedirect('/blog/category/show-all')}
