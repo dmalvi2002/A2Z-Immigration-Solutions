@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { submitEnquiryForm } from "@/utils/submitEnquiry";
 import React, { useRef, useState, FormEvent, useEffect } from "react";
 
 interface ContactProps {
@@ -33,69 +34,17 @@ const Contact: React.FC<ContactProps> = ({
 
     if (!form.current) return;
 
-    // Validate phone number format
-    const nameInput = form.current.querySelector(
-      '[name="name"]',
-    ) as HTMLInputElement;
-    const emailInput = form.current.querySelector(
-      '[name="email"]',
-    ) as HTMLInputElement;
-    const numberInput = form.current.querySelector(
-      '[name="number"]',
-    ) as HTMLInputElement;
-    const subjectInput = form.current.querySelector(
-      '[name="subject"]',
-    ) as HTMLInputElement;
-    const messageInput = form.current.querySelector(
-      '[name="message"]',
-    ) as HTMLTextAreaElement;
-
-    // Log form data to debug
-    console.log("Form data before submission:", {
-      name: nameInput?.value,
-      email: emailInput?.value,
-      number: numberInput?.value,
-      subject: subjectInput?.value,
-      message: messageInput?.value,
-    });
-
     setIsSubmitting(true);
     setSubmitStatus(null);
 
-    // Create template params object - explicit mapping to ensure data is passed
-    const templateParams = {
-      name: nameInput?.value,
-      email: emailInput?.value,
-      number: numberInput?.value,
-      subject: subjectInput?.value,
-      message: messageInput?.value,
-    };
-
     try {
-      const GOOGLE_SCRIPT_URL = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL || "";
-      if (!GOOGLE_SCRIPT_URL) {
-        throw new Error("Google Script URL is missing in environment variables.");
-      }
-
-      const response = await fetch(GOOGLE_SCRIPT_URL, {
-        method: "POST",
-        body: JSON.stringify(templateParams),
+      await submitEnquiryForm(form.current, "Contact page");
+      setSubmitStatus({
+        success: true,
+        message: "Your message has been sent successfully!",
       });
-
-      const result = await response.json();
-
-      if (result.result === "success") {
-        console.log("SUCCESS!", result);
-        console.log("Sent data:", templateParams);
-        setSubmitStatus({
-          success: true,
-          message: "Your message has been sent successfully!",
-        });
-        if (form.current) form.current.reset();
-        setIsChecked(false); // Reset checkbox state
-      } else {
-        throw new Error(result.error || "Unknown error from server");
-      }
+      form.current.reset();
+      setIsChecked(false);
     } catch (error) {
       console.error("FAILED...", error);
       setSubmitStatus({

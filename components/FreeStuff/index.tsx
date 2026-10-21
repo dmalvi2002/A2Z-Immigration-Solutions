@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Head from "next/head";
 import Image from "next/image";
-import emailjs from "@emailjs/browser";
+import { submitEnquiry } from "@/utils/submitEnquiry";
 
 type Resource = {
   id: string;
@@ -73,7 +73,6 @@ const FreeStuff: React.FC<FreeStuffProps> = ({ publicKey }) => {
   };
 
   const handleSubmit = () => {
-    console.log("FreeStuff handleSubmit started");
 
     if (!email.trim()) {
       setEmailError("Email is required");
@@ -85,32 +84,17 @@ const FreeStuff: React.FC<FreeStuffProps> = ({ publicKey }) => {
       return;
     }
 
-    if (!publicKey) {
-      setEmailError("Email service is not configured. Please try again later.");
-      return;
-    }
-
-    console.log("FreeStuff validation passed, sending email...");
     setEmailError("");
     setIsLoading(true);
 
-    // Send email via EmailJS
-    const templateParams = {
-      email: email,
-    };
-
-    console.log("FreeStuff EmailJS params:", templateParams);
-
-    emailjs
-      .send(
-        "service_6kcz58m", // Service ID
-        "template_uhk81r5", // Template ID
-        templateParams,
-        publicKey, // Use the public key from props
-      )
+    submitEnquiry({
+      email,
+      source: "Free resource download",
+      subject: selectedResource?.title || "Free resource",
+      message: "Requested a free resource download.",
+    })
       .then(
-        (result) => {
-          console.log("FreeStuff Email sent successfully:", result.text);
+        () => {
           setIsLoading(false);
           setIsSuccess(true);
 
@@ -131,7 +115,7 @@ const FreeStuff: React.FC<FreeStuffProps> = ({ publicKey }) => {
           console.error("FreeStuff Failed to send email:", error);
           setIsLoading(false);
           setEmailError(
-            error.text ||
+            error.message ||
               "Failed to send email. Please check your connection and try again.",
           );
         },

@@ -2,7 +2,7 @@
 
 // components/ContactForm.tsx
 import React, { useRef, FormEvent, useState } from "react";
-import emailjs from "@emailjs/browser";
+import { submitEnquiryForm } from "@/utils/submitEnquiry";
 
 interface ContactFormProps {
   serviceId: string;
@@ -32,10 +32,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
     setIsSubmitting(true);
     setSubmitStatus(null);
 
-    emailjs
-      .sendForm(serviceId, templateId, form.current, {
-        publicKey: publicKey,
-      })
+    submitEnquiryForm(form.current, "Contact form")
       .then(
         () => {
           console.log("SUCCESS!");
@@ -46,10 +43,9 @@ const ContactForm: React.FC<ContactFormProps> = ({
           if (form.current) form.current.reset();
         },
         (error) => {
-          console.log("FAILED...", error.text);
           setSubmitStatus({
             success: false,
-            message: `Failed to send message: ${error.text}`,
+            message: error.message || "Unable to send your message. Please try again.",
           });
         },
       )

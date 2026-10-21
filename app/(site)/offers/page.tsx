@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState, FormEvent } from "react";
-import emailjs from "@emailjs/browser";
+import { submitEnquiryForm } from "@/utils/submitEnquiry";
 
 type SubmitStatus =
   | { success: true; message: string }
@@ -10,7 +10,7 @@ type SubmitStatus =
   | null;
 
 export default function OffersPage() {
-  // === EmailJS form state (follow get-in-touch pattern) ===
+  // Enquiry form state
   const formRef = useRef<HTMLFormElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>(null);
@@ -22,10 +22,7 @@ export default function OffersPage() {
     setIsSubmitting(true);
     setSubmitStatus(null);
 
-    emailjs
-      .sendForm("service_yj3nlrh", "template_nastr37", formRef.current, {
-        publicKey: "8seFmYH7EcPOmhmGg",
-      })
+    submitEnquiryForm(formRef.current, "Offers page")
       .then(() => {
         setSubmitStatus({
           success: true,

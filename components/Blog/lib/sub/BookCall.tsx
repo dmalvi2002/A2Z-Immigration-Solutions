@@ -1,8 +1,8 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Send } from "lucide-react";
-import emailjs from "@emailjs/browser";
+import { submitEnquiry } from "@/utils/submitEnquiry";
 
 interface FormData {
   name: string;
@@ -12,11 +12,6 @@ interface FormData {
 }
 
 const BookCallSidebar: React.FC = () => {
-  // config variables
-  const serviceId = "service_vvede9g";
-  const templateId = "template_b1obkqe";
-  const publicKey = "8seFmYH7EcPOmhmGg";
-
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -26,11 +21,6 @@ const BookCallSidebar: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  // Initialize EmailJS once on component mount
-  useEffect(() => {
-    emailjs.init(publicKey);
-  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -48,18 +38,7 @@ const BookCallSidebar: React.FC = () => {
     setError(null);
 
     try {
-      // Log the data being sent for debugging
-      console.log("Sending form data:", formData);
-
-      // Send email using EmailJS with the renamed fields
-      const result = await emailjs.send(serviceId, templateId, {
-        name: formData.name,
-        email: formData.email,
-        number: formData.number,
-        message: formData.message,
-      });
-
-      console.log("Email sent successfully:", result.text);
+      await submitEnquiry({ ...formData, source: "Book a call" });
       setIsSubmitting(false);
       setIsSuccess(true);
 
