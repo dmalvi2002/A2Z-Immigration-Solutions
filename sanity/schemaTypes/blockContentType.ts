@@ -46,6 +46,10 @@ export const blockContentType = defineType({
             title: "URL",
             name: "link",
             type: "object",
+            // Avoid the old popover FocusLock/React Fragment incompatibility
+            // tracked upstream in sanity-io/sanity#9391 and fixed by #9571.
+            // A dialog uses the supported modal path without changing stored links.
+            options: { modal: { type: "dialog" } },
             fields: [
               {
                 title: "URL",
