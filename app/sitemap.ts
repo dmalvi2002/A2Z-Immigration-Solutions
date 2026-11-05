@@ -1,3 +1,4 @@
+import { occupationData, occupationPath } from "@/utils/skilled-worker";
 import type { MetadataRoute } from "next";
 import { client } from "@/sanity/lib/client";
 import { getSettings } from "@/sanity/lib/content";
@@ -12,6 +13,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getSettings(),
   ]);
   const entries: MetadataRoute.Sitemap = pageRegistry
+    .filter((page) => page.id !== "our-clients")
     .filter((page) =>
       isSitemapEntry(
         page.path,
@@ -33,5 +35,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (isSitemapEntry(path, doc.seo))
       entries.push({ url: absoluteUrl(path), lastModified: doc._updatedAt });
   }
+  entries.push(...occupationData.occupations.map(o => ({ url: absoluteUrl(occupationPath(o.code)), lastModified: occupationData.reviewedAt })));
   return entries;
 }

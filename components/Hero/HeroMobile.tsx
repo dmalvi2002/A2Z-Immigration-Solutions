@@ -312,6 +312,12 @@ const HeroMobile: React.FC = () => {
                   />
                 </motion.button>
               </Link>
+              <Link
+                href="/calculator"
+                className="relative inline-flex items-center justify-center overflow-hidden mt-3 w-48 rounded-lg px-4 py-3 text-sm sm:w-56 sm:text-base border border-white/70 bg-gradient-to-br from-white/70 via-white/40 to-sky-100/30 font-medium text-sky-900 shadow-[0_4px_20px_rgba(14,116,144,0.12),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-xl transition-all duration-300 hover:border-white/90 hover:from-white/85 hover:via-white/60 hover:to-sky-100/50 hover:shadow-[0_6px_24px_rgba(14,116,144,0.18),inset_0_1px_0_rgba(255,255,255,1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-700"
+              >
+                Visa Fee Calculator
+              </Link>
             </motion.div>
           </motion.div>
         </motion.div>

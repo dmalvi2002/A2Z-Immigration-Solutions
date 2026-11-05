@@ -292,7 +292,7 @@ const AboutUs: React.FC = () => {
               {
                 title: "Skilled Worker Visa",
                 description:
-                  "Our end-to-end visa application process for skilled workers ensures a smooth experience with guaranteed results and full support throughout the journey.",
+                  "Our visa application service for skilled workers provides careful preparation, clear guidance and support throughout the process. Each application is assessed on its individual circumstances, and outcomes are determined by the Home Office.",
                 icon: "🛂",
               },
             ].map((service, index) => (
@@ -399,35 +399,6 @@ const AboutUs: React.FC = () => {
             </div>
           </motion.div> */}
 
-          {/* Testimonial Preview */}
-          <motion.div
-            className="rounded-2xl bg-sky-900 p-10 text-center text-white"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="mb-6 text-5xl">❝</div>
-            <p className="mb-6 text-xl font-light italic">
-              A huge thank you to Fiyadh and his team for expertly guiding us
-              through the process of maintaining our Sponsor Licence. Their deep
-              expertise in immigration compliance, especially in SMS portal
-              management and HR compliance, has been invaluable in keeping us
-              fully aligned with all regulations.
-            </p>
-            <div className="mx-auto mb-4 h-px w-24 bg-sky-300"></div>
-            <p className="font-medium">Yerasimos Angelis</p>
-            <p className="text-sm text-sky-300">
-              Managing Director of GA R&D LTD
-            </p>
-
-            <Link
-              href="/our-clients"
-              className="mt-8 inline-block rounded-full border border-white bg-transparent px-8 py-3 font-medium transition-colors hover:bg-white hover:text-sky-900"
-            >
-              Read More Success Stories
-            </Link>
-          </motion.div>
         </div>
       </section>
 

@@ -319,7 +319,7 @@ export default function OffersPage() {
               <div className="hero-tagline">
                 <p>
                   Save 50% on Professional Immigration Services | 200+ Success
-                  Stories | Money-Back Guarantee
+                  Stories | Clear Application Guidance
                 </p>
               </div>
 
@@ -349,7 +349,7 @@ export default function OffersPage() {
               <h2>⏰ Limited Time Offer - Ends Soon!</h2>
               <p>
                 ✅ Save 50% on ALL Services | 🎯 FREE Consultation Worth £150 |
-                ⚡ 24-Hour Response Guarantee
+                ⚡ Dedicated Application Support
               </p>
               <div className="countdown-timer">
                 <div className="timer-item">
@@ -685,25 +685,6 @@ export default function OffersPage() {
             <div className="testimonials-grid">
               <div className="testimonial-card">
                 <img
-                  src="https://res.cloudinary.com/dvvcwzp4n/image/upload/v1754945399/client-photo-1_n7dy7n.jpg"
-                  alt="Sarah Ahmed"
-                  className="client-photo"
-                />
-                <div className="testimonial-content">
-                  <div className="stars">⭐⭐⭐⭐⭐</div>
-                  <p>
-                    "A huge thank you to Fiyadh and his team for expertly
-                    guiding us through the process of maintaining our Sponsor
-                    Licence."
-                  </p>
-                  <div className="client-info">
-                    <strong>MD Ashiqur Rahman</strong>
-                    <span>Sponsor Licence Approved</span>
-                  </div>
-                </div>
-              </div>
-              <div className="testimonial-card">
-                <img
                   src="https://res.cloudinary.com/dvvcwzp4n/image/upload/v1754945400/client-photo-2_bishn0.png"
                   alt="Raj Patel"
                   className="client-photo"
@@ -782,8 +763,8 @@ export default function OffersPage() {
                 />
                 <h3>Document Preparation</h3>
                 <p>
-                  Our experts prepare all required documents and forms with 100%
-                  accuracy to maximize approval chances.
+                  Our team helps prepare and review the required documents and
+                  forms, checking for accuracy and completeness before submission.
                 </p>
               </div>
               <div className="process-step">
@@ -864,26 +845,20 @@ export default function OffersPage() {
           <section className="guarantees-section">
             <div className="container">
               <div className="guarantees-header">
-                <h2 className="section-title">🛡️ Our Iron-Clad Guarantees</h2>
+                <h2 className="section-title">🛡️ Our Service Commitments</h2>
                 <p className="section-subtitle">
-                  Your success is our commitment. We stand behind every promise
-                  with concrete guarantees.
+                  We provide clear guidance, careful preparation and practical
+                  support. Application decisions rest with the Home Office,
+                  and approval cannot be guaranteed.
                 </p>
               </div>
               <div className="guarantees-grid">
                 <div className="guarantee-card">
-                  <div className="guarantee-image-wrapper">
-                    <img
-                      src="https://res.cloudinary.com/dvvcwzp4n/image/upload/v1754945403/money-back-gurantee_dqdpqk.webp"
-                      alt="Money Back Guarantee"
-                      className="guarantee-image"
-                    />
-                  </div>
                   <div className="guarantee-content">
-                    <h3>100% Money-Back Guarantee</h3>
+                    <h3>Clear Advice on Your Options</h3>
                     <p>
-                      If we can&apos;t help you achieve your immigration goals,
-                      we&apos;ll refund every penny. No questions asked.
+                      We review your circumstances, explain the available options
+                      and help you understand the requirements before you proceed.
                     </p>
                   </div>
                 </div>
@@ -896,9 +871,10 @@ export default function OffersPage() {
                     />
                   </div>
                   <div className="guarantee-content">
-                    <h3>24-Hour Response Promise</h3>
+                    <h3>Responsive Communication</h3>
                     <p>
-                      Get answers to your questions within 24 hours, guaranteed.
+                      We aim to respond promptly and keep you informed throughout
+                      your application.
                       Emergency support available 24/7.
                     </p>
                   </div>
@@ -962,12 +938,12 @@ export default function OffersPage() {
                   <i className="fas fa-shield-alt"></i>
                 </div>
                 <div className="feature-content">
-                  <h3>Satisfaction Guaranteed</h3>
+                  <h3>Careful Case Preparation</h3>
                   <p>
-                    With our 99% success rate and money-back guarantee, you can
-                    trust us with your immigration journey. We thoroughly review
-                    every case and only proceed when we&apos;re confident of a
-                    positive outcome.
+                    We review your circumstances and supporting documents,
+                    explain potential risks and help you prepare your application.
+                    Every application is assessed individually by the Home Office,
+                    and outcomes cannot be guaranteed.
                   </p>
                 </div>
               </div>

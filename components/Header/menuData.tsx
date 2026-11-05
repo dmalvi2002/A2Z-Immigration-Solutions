@@ -41,12 +41,6 @@ const menuData: Menu[] = [
     path: "/offers",
   },
   {
-    id: 5,
-    title: "Our Clients",
-    newTab: false,
-    path: "/our-clients",
-  },
-  {
     id: 2,
     title: "About Us",
     newTab: false,
@@ -68,6 +62,12 @@ const menuData: Menu[] = [
         title: "Resources",
         newTab: false,
         path: "/resources",
+      },
+      {
+        id: 43,
+        title: "SOC Code & Salary Finder",
+        newTab: false,
+        path: "/soc-code-finder",
       },
       {
         id: 42,

@@ -26,11 +26,15 @@ const VisaBanner: React.FC = () => {
           requesting and assigning certificates of sponsorship and submitting
           visa applications, all overseen by immigration experts.
         </PageText></p>
-        <a href="/get-in-touch">
-          <button className="rounded bg-gradient-to-r from-sky-500 to-sky-800 px-6 py-3 font-semibold text-white transition-colors duration-300  hover:brightness-110">
+        <div className="flex flex-wrap items-center gap-3">
+          <a href="/get-in-touch" className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-sky-500 to-sky-800 px-6 py-3 font-semibold text-white transition hover:brightness-110">
             Get in touch
-          </button>
-        </a>
+          </a>
+          <a href="/soc-code-finder" className="inline-flex items-center justify-center gap-2 rounded-xl border border-sky-200 bg-sky-50 px-5 py-3 font-semibold text-sky-800 transition hover:bg-sky-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-600">
+            Find SOC Code &amp; Salary
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
       </div>
 
       <div className="relative flex w-full items-center justify-center md:w-1/2">

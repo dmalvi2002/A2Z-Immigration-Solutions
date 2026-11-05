@@ -38,7 +38,7 @@ const tabsData: TabContent[] = [
     modalContent: {
       detailedTitle: "Submit Application",
       detailedDescription:
-        "Once your business is fully prepared, the next step is submitting the Sponsor Licence application online. Our experts provide a thorough review of your supporting documents and letters, ensuring they are well-structured, persuasive, and compliant with Home Office standards to strengthen your case and maximise the chance of approval. We also handle all follow-ups and communications with the Home Office, addressing any additional requests or clarifications to ensure a smooth approval process.",
+        "Once your business is fully prepared, the next step is submitting the Sponsor Licence application online. Our experts provide a thorough review of your supporting documents and letters, ensuring they are well-structured, persuasive, and compliant with Home Office standards to strengthen your case and maximise the chance of approval. We also handle all follow-ups and communications with the Home Office, addressing any additional requests or clarifications to help keep your application on track. The Home Office makes the final decision.",
       detailedCTA:
         "📩 Need expert guidance? Contact us today to begin your Sponsor Licence application with confidence!",
     },

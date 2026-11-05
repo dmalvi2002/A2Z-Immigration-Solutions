@@ -50,7 +50,9 @@ async function main() {
     const html = await response.text();
     assert.ok(/<link[^>]+rel="canonical"/.test(html),category.title+' archive canonical');
   }
-  const pages = ['/', '/about-us', '/services/sponsor-licence', '/services/skilled-worker-visa', '/services/compliance', '/services/other-services', '/get-in-touch', '/our-clients', '/resources', '/calculator', '/offers', '/terms', '/privacy-policy'];
+  const hiddenClients = await fetch(base+'/our-clients');
+  assert.equal(hiddenClients.status,404,'temporarily hidden clients page');
+  const pages = ['/', '/about-us', '/services/sponsor-licence', '/services/skilled-worker-visa', '/services/compliance', '/services/other-services', '/get-in-touch', '/resources', '/calculator', '/offers', '/terms', '/privacy-policy'];
   for(const path of pages) {
     const response = await fetch(base+path);
     assert.equal(response.status,200,path);

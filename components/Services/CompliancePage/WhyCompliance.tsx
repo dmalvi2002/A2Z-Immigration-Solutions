@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useId, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 import Image from "next/image";
 
@@ -10,13 +10,9 @@ interface ListItemProps {
 }
 
 const WhyCompliance: React.FC = () => {
-  // Generate unique IDs for SVG elements
-  const clipPathId1 = useId();
-  const clipPathId2 = useId();
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: false, amount: 0.1 });
   const controls = useAnimation();
-  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     if (isInView) {
@@ -26,32 +22,11 @@ const WhyCompliance: React.FC = () => {
     }
   }, [isInView, controls]);
 
-  // Handle video loading state
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 300);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   const containerVariants = {
     hidden: {},
     visible: {
       transition: {
         staggerChildren: 0.15,
-      },
-    },
-  };
-
-  const videoVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
       },
     },
   };
@@ -171,7 +146,7 @@ const WhyCompliance: React.FC = () => {
         // initial="hidden"
         animate={controls}
       >
-        <div className="grid gap-10 md:gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
+        <div className="mx-auto max-w-4xl">
           {/* Content Section */}
           <div className="order-1 flex flex-col justify-center sm:order-2 md:order-2 lg:order-2">
             <motion.div
@@ -214,30 +189,6 @@ const WhyCompliance: React.FC = () => {
             </motion.div>
           </div>
 
-          {/* Video Section (replacing Image Section) */}
-          <motion.div
-            className="order-2 flex items-center justify-center md:order-1 lg:order-1 lg:justify-center"
-            variants={videoVariants}
-          >
-            <div className="relative h-[180px] w-[280px] rounded-3xl bg-gradient-to-b from-sky-400 via-sky-300 to-sky-200 p-1 sm:h-[240px] sm:w-[360px] sm:max-w-lg md:h-[320px] md:w-[502px] md:p-2 lg:max-w-xl xl:max-w-2xl">
-              <div className="relative h-full w-full overflow-hidden rounded-2xl">
-                <motion.div
-                  animate={{ opacity: isLoaded ? 1 : 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="h-full w-full"
-                >
-                  <iframe
-                    src="https://www.youtube.com/embed/0pJWdqBEQhQ?si=Uaen6qMH3fN-UVYh&rel=0&controls=1&modestbranding=1&autoplay=0&mute=0&showinfo=0&fs=1&loop=0&playsinline=1"
-                    title="UK Sponsor License video"
-                    className="h-full w-full"
-                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    onLoad={() => setIsLoaded(true)}
-                  ></iframe>
-                </motion.div>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </motion.div>
     </section>

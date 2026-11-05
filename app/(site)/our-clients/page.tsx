@@ -1,20 +1,12 @@
-import {pageMetadata} from '@/sanity/lib/content';
-import PageData from '@/components/CMS/PageData';
-export const generateMetadata = () => pageMetadata('our-clients');
-import React from "react";
-import { Metadata } from "next";
-import ClientsPage from "@/components/OurClients";
-import ClientsHero from "@/components/OurClients/ClientsHero";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
-
-
-const OurClientsPage = () => {
-  return (<> <PageData id="our-clients" />
-    <div>
-      <ClientsHero />
-      <ClientsPage />
-    </div>
-  </>);
+export const metadata: Metadata = {
+  title: "Page unavailable - A2Z",
+  robots: { index: false, follow: false },
 };
 
-export default OurClientsPage;
+// Temporarily unpublished. Restore the page only once approved stories are ready.
+export default function OurClientsPage() {
+  notFound();
+}

@@ -34,7 +34,7 @@ const SponsorServices: React.FC = () => {
       id: "skilled-worker-visa",
       title: "Skilled Worker Visa",
       description:
-        "Our end-to-end visa application process for skilled workers ensures a smooth experience with guaranteed results and full support throughout the journey.",
+        "Our visa application service for skilled workers provides careful preparation, clear guidance and support throughout the process. Each application is assessed on its individual circumstances, and outcomes are determined by the Home Office.",
       icon: "/images/icon/skilledvisa.svg",
       color: "#1565c0",
       benefits: [
@@ -249,8 +249,9 @@ const SponsorServices: React.FC = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              Looking for candidates and visa applications? Our seamless process
-              offers guaranteed visa success.{" "}
+              Looking for support with recruitment and visa applications? We
+              provide guidance on eligibility, documentation and application
+              preparation. Decisions rest with the Home Office.{" "}
               <button
                 onClick={() => {
                   setTimeout(() => {

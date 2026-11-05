@@ -27,16 +27,6 @@ const testimonials: Testimonial[] = [
     rating: 5,
   },
   {
-    id: 2,
-    content:
-      "A huge thank you to Fiyadh and his team for expertly guiding us through the process of maintaining our Sponsor Licence. Their deep expertise in immigration compliance, especially in SMS portal management and HR compliance, has been invaluable in keeping us fully aligned with all regulations.",
-    name: "MD Ashiqur Rahman",
-    position: "Marketing Director",
-    location: "Scotland, UK",
-    avatar: "/images/user/user-02.png",
-    rating: 5,
-  },
-  {
     id: 3,
     content:
       "I had a super experience throughout the journey. Me and my wife always got great help and cooperation from the team. Everyone is very helpful. A special thanks to Fahim bhai for his continuous support. Wish you good luck A2Z Immigration Solutions Ltd.",

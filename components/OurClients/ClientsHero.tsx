@@ -1,35 +1,13 @@
 "use client";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
-import { FC, useRef, useState, useEffect } from "react";
-
-type Client = {
-  name: string;
-  industry: string;
-};
+import { FC, useRef } from "react";
 
 const ClientsHero: FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
-
-  // Featured clients that will rotate through
-  const [currentClientIndex, setCurrentClientIndex] = useState(0);
-  const featuredClients: Client[] = [
-    { name: "GA R&D", industry: "Company" },
-    { name: "GA R&D", industry: "Company" },
-    { name: "GA R&D", industry: "Company" },
-  ];
-
-  // Auto rotate through clients
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentClientIndex((prev) => (prev + 1) % featuredClients.length);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, [featuredClients.length]);
 
   // Text animation variants
   const textVariants = {
@@ -127,32 +105,6 @@ const ClientsHero: FC = () => {
             Building innovative solutions for forward-thinking organizations
             worldwide.
           </motion.p>
-
-          {/* Animated Client Showcase */}
-          <motion.div
-            className="max-w-sm rounded-lg bg-white/10 p-6 backdrop-blur-md"
-            custom={3}
-            initial="hidden"
-            animate="visible"
-            variants={textVariants}
-          >
-            <p className="mb-2 text-white/80">Featured Client</p>
-            <motion.div
-              key={currentClientIndex}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.5 }}
-              className="flex flex-col"
-            >
-              <h3 className="text-2xl font-bold text-white">
-                {featuredClients[currentClientIndex].name}
-              </h3>
-              <p className="text-white/70">
-                {featuredClients[currentClientIndex].industry}
-              </p>
-            </motion.div>
-          </motion.div>
 
           {/* CTA Button */}
         </motion.div>

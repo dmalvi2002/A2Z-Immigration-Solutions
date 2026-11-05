@@ -1,10 +1,52 @@
-import React from "react";
+import React, { useEffect, useId, useRef, useState } from "react";
 import { CalculatorState } from "./index";
 
 interface Props {
   state: CalculatorState;
   updateState: (key: keyof CalculatorState, value: any) => void;
 }
+
+const PriorityHelp = ({ label, children }: { label: string; children: React.ReactNode }) => {
+  const [open, setOpen] = useState(false);
+  const id = useId();
+  const container = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const dismiss = (event: PointerEvent) => {
+      if (!container.current?.contains(event.target as Node)) setOpen(false);
+    };
+    document.addEventListener("pointerdown", dismiss);
+    return () => document.removeEventListener("pointerdown", dismiss);
+  }, [open]);
+
+  return (
+    <span ref={container} className="relative inline-flex shrink-0"
+      onPointerEnter={(event) => { if (event.pointerType === "mouse") setOpen(true); }}
+      onPointerLeave={(event) => { if (event.pointerType === "mouse") setOpen(false); }}
+      onKeyDown={(event) => { if (event.key === "Escape") setOpen(false); }}
+    >
+      <button type="button" aria-label={label} aria-expanded={open}
+        aria-controls={id} aria-describedby={open ? id : undefined}
+        onClick={() => setOpen(value => !value)}
+        onFocus={(event) => { if (event.currentTarget.matches(":focus-visible")) setOpen(true); }}
+        onBlur={() => setOpen(false)}
+        className="flex h-8 w-8 items-center justify-center rounded-full text-sky-700 transition-colors hover:bg-sky-50 hover:text-sky-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 dark:text-sky-300 dark:hover:bg-sky-900/30 dark:hover:text-sky-100"
+      >
+        <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className="h-[18px] w-[18px]">
+          <circle cx="10" cy="10" r="8" fill="currentColor" fillOpacity="0.18" />
+          <path d="M8.25 7.5a1.75 1.75 0 0 1 3.5 0c0 1.25-1.75 1.5-1.75 2.75" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          <circle cx="10" cy="12.75" r="0.8" fill="currentColor" />
+        </svg>
+      </button>
+      {open && (
+        <span id={id} role="tooltip" className="absolute bottom-full right-0 z-30 w-60 max-w-[calc(100vw-3rem)] rounded-xl border border-sky-100 bg-white p-3 text-left text-xs leading-relaxed text-slate-700 shadow-lg dark:border-strokedark dark:bg-blacksection dark:text-white">
+          {children}
+        </span>
+      )}
+    </span>
+  );
+};
 
 const CalculatorForm: React.FC<Props> = ({ state, updateState }) => {
   return (
@@ -58,8 +100,9 @@ const CalculatorForm: React.FC<Props> = ({ state, updateState }) => {
           <label className="mb-3 block text-sm font-medium text-black dark:text-white">
             Licence Priority Services (Optional)
           </label>
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <label className="flex cursor-pointer items-center gap-3">
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <div className="flex items-center gap-1">
+            <label className="flex items-center gap-3 cursor-pointer">
               <input
                 type="checkbox"
                 checked={state.preLicencePriority}
@@ -68,6 +111,11 @@ const CalculatorForm: React.FC<Props> = ({ state, updateState }) => {
               />
               <span className="text-sm">Pre-licence priority</span>
             </label>
+              <PriorityHelp label="About pre-licence priority">
+                For organisations applying for a sponsor licence. This optional service prioritises consideration of an eligible licence application. Subject to availability; approval is not guaranteed.
+              </PriorityHelp>
+            </div>
+            <div className="flex items-center gap-1">
             <label className="flex cursor-pointer items-center gap-3">
               <input
                 type="checkbox"
@@ -77,6 +125,10 @@ const CalculatorForm: React.FC<Props> = ({ state, updateState }) => {
               />
               <span className="text-sm">Post-licence priority</span>
             </label>
+              <PriorityHelp label="About post-licence priority">
+                For organisations that already hold a sponsor licence. This optional service prioritises eligible sponsor change requests, such as certain Certificate of Sponsorship allocation or key personnel changes. Subject to availability; approval is not guaranteed.
+              </PriorityHelp>
+            </div>
           </div>
         </div>
       </div>

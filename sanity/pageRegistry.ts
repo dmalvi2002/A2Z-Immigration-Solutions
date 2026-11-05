@@ -78,4 +78,10 @@ export const pageRegistry = [
     title: "Privacy Policy - A2Z",
     description: "Privacy policy",
   },
+  {
+    id: "soc-code-finder",
+    path: "/soc-code-finder",
+    title: "SOC Code & Salary Threshold Finder | A2Z Immigration",
+    description: "Search UK SOC codes, related job titles, published salary going rates and Skilled Worker occupation eligibility with our free finder.",
+  },
 ] as const;

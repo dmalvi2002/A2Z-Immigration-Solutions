@@ -54,7 +54,7 @@ const packages: PricingPackage[] = [
         text: "Assistance with assigning the first Certificate of Sponsorship (CoS)",
       },
       {
-        text: "Support with Appeals & Reapplications – If your application is refused, we provide strategic assistance to rectify issues and eventually your Licence will be granted.",
+        text: "Support with Refusals & Reapplications – If your application is refused, we help you understand the reasons and assess appropriate next steps, including addressing issues before reapplying where suitable. All decisions rest with the Home Office; approval cannot be guaranteed.",
       },
     ],
     description:

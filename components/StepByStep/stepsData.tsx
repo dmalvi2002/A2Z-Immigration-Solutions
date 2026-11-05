@@ -57,7 +57,7 @@ export const additionalInfo = {
   },
   2: {
     expectation:
-      "We are specialised in this section. We make the process simple and hassle-free. Our experts handle everything from eligibility checks to application submission, ensuring a smooth approval process.",
+      "We are specialised in this section. We make the process simple and hassle-free. Our experts handle everything from eligibility checks to application submission, helping you prepare a clear and complete application. The Home Office makes the final decision.",
     documents: [
       "End-to-End Support: From application to compliance, we guide you at every step.",
       "Fast & Efficient Processing: We help you avoid delays and errors.",
